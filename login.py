@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image #pip install pillow en caso de error
 from tkinter import messagebox
 import sqlite3
 
