@@ -5,6 +5,7 @@ import sqlite3
 
 class Register:
     def __init__(self,root):
+        #Metodo contstrucor
         self.root=root
         self.root.title("Formulario de Registro de Usuarios")
         self.root.geometry("1350x700+0+0")
@@ -79,10 +80,12 @@ class Register:
         btn_login=Button(self.root,text="¿Ya tienes cuenta?\nIngresar",command=self.login_window,font=("times new roman",16),bd=0, cursor="hand2",bg="red",fg="white").place(x=200,y=520,width=180)
 
     def login_window(self):
+        #Metodo que cierra la ventana actual y abre la de login
         self.root.destroy()
         import login
 
     def clear(self):
+        #Metodo que vacia los campos
         self.txt_fname.delete(0,END)
         self.txt_lname.delete(0,END)
         self.txt_contact.delete(0,END)
@@ -94,18 +97,24 @@ class Register:
         self.cmb_priv.current(0)
 
     def register_data(self):
+        #Metodo que registra los datos
+        #Verifica que los campos no esten vacios, de ser asi marcara error
         if self.txt_fname.get()=="" or self.txt_lname.get()=="" or self.txt_contact.get()=="" or self.txt_email=="" or self.txt_answer.get()=="" or self.txt_password.get()=="" or self.txt_cpassword.get()=="" or self.cmb_quest.get()=="Seleccionar" or self.cmb_priv.get()=="Seleccionar":
             messagebox.showerror("Error", "Todos los campos son requeridos", parent=self.root)
         elif self.txt_password.get() != self.txt_cpassword.get():
+            #Verifica que las contrasenas coincidan
             messagebox.showerror("Error","Las contraseñas no coinciden", parent=self.root)
         elif self.var_chk.get()==0:
+            #Verifica que este activada el checkbox de terminos y condiciones
             messagebox.showerror("Error","Por favor, acepta los terminos & condiciones", parent=self.root)
         else:
             try:
+                #Intenta conectar, consultar el email de la tabla usuarios
                 con = sqlite3.connect("uanl.db")
                 cur = con.cursor()
                 cur.execute("SELECT * FROM usuarios WHERE email='"+self.txt_email.get()+"'")
                 row=cur.fetchone()
+                #Si el email ya existe en la tabla entonces marca error
                 if row!=None:
                     messagebox.showerror("Error",f"Usuario ya existe\nPor favor, ingrese otro Email", parent=self.root)
                 else:

@@ -6,6 +6,7 @@ import sqlite3
 
 class Student:
     def __init__(self, ventana):
+        #Metodo contructor, en este se crean la ventana y las etiquteas
         self.ventana = ventana
         self.ventana.title("Sistema Administrador de Estudiantes")
         #Dimension de la ventana
@@ -207,6 +208,7 @@ class Student:
 
 
     def fetch_data(self):
+        #Metodo que consulta todos los datos
         con=sqlite3.connect("uanl.db")
         cur=con.cursor()
         cur.execute("SELECT * FROM alumnos")
@@ -219,6 +221,7 @@ class Student:
         con.close()
     
     def clear(self):
+        #Metodo que vacia los campos del formulario
         self.matricula_var.set("")
         self.nombre_var.set("")
         self.appat_var.set("")
@@ -274,6 +277,7 @@ class Student:
             messagebox.showinfo("Eliminado", "Se elimino correctamente el registro!")
 
     def buscar_data(self):
+        #Metodo que regresa los datos que el usuario ingresa
         con=sqlite3.connect("uanl.db")
         cur=con.cursor()
         cur.execute("SELECT * FROM alumnos WHERE "+str(self.buscar_por.get())+" LIKE '%"+str(self.buscar_txt.get())+"%'")
